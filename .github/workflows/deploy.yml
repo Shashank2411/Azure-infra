@@ -1,4 +1,4 @@
-name: Deploy Function App with Bicep
+name: Deploy Function App (Node.js)
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -26,18 +26,8 @@ jobs:
         template: ./infra/main.bicep
         parameters: ./infra/parameters.json
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: 8.0.x
-
-    - name: Build Function
-      run: |
-        cd function-code
-        dotnet publish -c Release -o publish
-
     - name: Deploy Function Code
       uses: Azure/functions-action@v1
       with:
         app-name: func-central-demo12345
-        package: function-code/publish
+        package: function-code
