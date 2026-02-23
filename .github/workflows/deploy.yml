@@ -1,4 +1,4 @@
-name: Deploy Azure Storage Account
+name: Deploy Azure Infrastructure + Function App
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy-storage:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,6 +20,7 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Deploy Bicep
+        id: deployinfra
         uses: azure/arm-deploy@v1
         with:
           subscriptionId: ${{ fromJSON(secrets.AZURE_CREDENTIALS).subscriptionId }}
@@ -27,3 +28,9 @@ jobs:
           template: infra/main.bicep
           parameters: |
             storageAccountName=st${{ github.run_id }}
+
+      - name: Deploy Function App Code
+        uses: azure/functions-action@v1
+        with:
+          app-name: ${{ steps.deployinfra.outputs.functionAppName }}
+          package: functionapp-code
