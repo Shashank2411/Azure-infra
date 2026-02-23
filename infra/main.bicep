@@ -39,7 +39,7 @@ resource appServicePlan 'Microsoft.Web/serverfarms@2022-03-01' = {
 }
 
 //
-// FUNCTION APP (FIXED VERSION)
+// FUNCTION APP (Linux, .NET 8 Isolated)
 //
 resource functionApp 'Microsoft.Web/sites@2022-03-01' = {
   name: functionAppName
@@ -49,7 +49,8 @@ resource functionApp 'Microsoft.Web/sites@2022-03-01' = {
     serverFarmId: appServicePlan.id
     httpsOnly: true
     siteConfig: {
-      linuxFxVersion: 'Node|18'
+      // NOTE: If your region truly doesn't support .NET isolated, see the fallback at the end.
+      linuxFxVersion: 'DOTNET-ISOLATED|8.0'
       appSettings: [
         {
           name: 'AzureWebJobsStorage'
@@ -61,15 +62,17 @@ resource functionApp 'Microsoft.Web/sites@2022-03-01' = {
         }
         {
           name: 'FUNCTIONS_WORKER_RUNTIME'
-          value: 'node'
+          value: 'dotnet-isolated'
+        }
+        // Run from the published package we upload
+        {
+          name: 'WEBSITE_RUN_FROM_PACKAGE'
+          value: '1'
         }
       ]
     }
   }
 }
 
-//
-// OUTPUTS
-//
 output functionAppName string = functionAppName
 output storageId string = sa.id

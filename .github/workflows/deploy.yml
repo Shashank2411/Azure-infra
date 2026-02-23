@@ -1,11 +1,8 @@
-
-
-name: Deploy Azure Infrastructure + Function App
+name: Deploy Azure Infrastructure + .NET Function App
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
@@ -31,8 +28,22 @@ jobs:
           parameters: |
             storageAccountName=st${{ github.run_id }}
 
+      # Build & publish .NET isolated Azure Functions
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore
+        working-directory: functionapp-code
+        run: dotnet restore
+
+      - name: Publish
+        working-directory: functionapp-code
+        run: dotnet publish -c Release -o ./publish
+
       - name: Deploy Function App Code
         uses: azure/functions-action@v1
         with:
           app-name: ${{ steps.deployinfra.outputs.functionAppName }}
-          package: functionapp-code
+          package: functionapp-code/publish
