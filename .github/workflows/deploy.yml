@@ -3,7 +3,7 @@ name: Deploy Storage  + Function
 on:
   push:
     branches:
-      - feature/function-deployment
+      - main
 
 jobs:
   deploy:
