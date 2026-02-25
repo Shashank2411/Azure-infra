@@ -33,6 +33,11 @@ resource functionApp 'Microsoft.Web/sites@2023-01-01' = {
           name: 'AzureWebJobsStorage'
           value: storageAccount.properties.primaryEndpoints.blob
         }
+        
+        {
+          name: 'FUNCTIONS_EXTENSION_VERSION'
+          value: '~4'
+        }
         {
           name: 'FUNCTIONS_WORKER_RUNTIME'
           value: 'node'
