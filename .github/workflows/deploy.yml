@@ -24,8 +24,8 @@ jobs:
         resourceGroupName: myResourceGroup
         template: ./infra/main.bicep
         parameters: ./infra/parameters.json
-    - name: Deploy Function App
-      uses: Azure/functions-action@v1
+    - name: Deploy Function Code
+      uses: Azure/functions-action@v1.5.1
       with:
         app-name: functionappdemo7287
         package: ./function-code    
