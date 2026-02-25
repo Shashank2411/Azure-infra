@@ -28,4 +28,4 @@ jobs:
       uses: Azure/functions-action@v1
       with:
         app-name: functionappdemo7287
-        package: function-code    
+        package: ./function-code    
