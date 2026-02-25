@@ -1,4 +1,5 @@
 param storageAccountName string
+param functionAppName string
 param location string = resourceGroup().location
 
 resource storageAccount 'Microsoft.Storage/storageAccounts@2023-01-01' = {
