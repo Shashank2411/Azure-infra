@@ -1,4 +1,4 @@
-name: Deploy Function App (Node.js)
+name: Deploy Storage Account
 
 on:
   push:
@@ -18,16 +18,10 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    - name: Deploy Infrastructure
+    - name: Deploy Storage Infrastructure
       uses: azure/arm-deploy@v1
       with:
-        subscriptionId: ${{ fromJson(secrets.AZURE_CREDENTIALS).subscriptionId }}
-        resourceGroupName: rg-demo
-        template: ./infra/main.bicep
+        subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+        resourceGroupName: myResourceGroup
+        template: ./infra/template.json
         parameters: ./infra/parameters.json
-
-    - name: Deploy Function Code
-      uses: Azure/functions-action@v1
-      with:
-        app-name: func-central-demo7287
-        package: function-code

@@ -3,10 +3,8 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "storageAccountName": {
-      "value": "stcentraldemo7287"
-    },
-    "functionAppName": {
-      "value": "func-central-demo7287"
+      "value": "storageaccountdemo7287"
+
     },
     "location": {
       "value": "centralindia"

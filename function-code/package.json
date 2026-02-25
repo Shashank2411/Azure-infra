@@ -1,7 +1,0 @@
-{
-  "name": "hello-function",
-  "version": "1.0.0",
-  "description": "Timer Hello World Function",
-  "main": "index.js",
-  "dependencies": {}
-}
