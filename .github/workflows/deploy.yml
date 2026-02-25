@@ -1,9 +1,9 @@
-name: Deploy Storage Account
+name: Deploy Storage  + Function
 
 on:
   push:
     branches:
-      - main
+      - feature/function-deployment
 
 jobs:
   deploy:
@@ -18,10 +18,14 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    - name: Deploy Storage Infrastructure
+    - name: Deploy Infrastructure
       uses: azure/arm-deploy@v1
       with:
-        subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
         resourceGroupName: myResourceGroup
         template: ./infra/main.bicep
         parameters: ./infra/parameters.json
+    - name: Deploy Function App
+      uses: Azure/functions-action@v1
+      with:
+        app-name: functionappdemo7287
+        package: function-code    

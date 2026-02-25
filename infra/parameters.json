@@ -6,6 +6,9 @@
       "value": "storageaccountdemo7287"
 
     },
+    "functionAppName": {
+      "value": "functionappdemo7287"
+    },
     "location": {
       "value": "centralindia"
     }
