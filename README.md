@@ -22,8 +22,22 @@ Infrastructure deployed using Bicep templates
 Function code deployed to Azure Function App
 Timer-triggered function executes every 30 seconds
 📂 Repository Structure
-
-Azure-infra/ │ ├── .github/workflows/ │ └── deploy.yml # CI/CD Pipeline │ ├── infra/ │ ├── main.bicep # Infrastructure Definition │ └── parameters.json # Deployment Parameters │ ├── function-code/ │ ├── HelloFunction/ │ │ ├── index.js # Function Logic │ │ └── function.json # Trigger Configuration │ ├── host.json │ └── package.json │ └── README.md
+Azure-infra/ │ 
+├── .github/workflows/ 
+│ └── deploy.yml # CI/CD Pipeline  
+├── infra/ 
+│ ├── main.bicep # Infrastructure Definition 
+│ └── parameters.json # Deployment Parameters 
+├── function-code/ 
+│ ├── HelloFunction/ 
+│ │ ├── index.js # Function Logic 
+│ │ └── function.json # Trigger Configuration 
+│ ├── HttpTrigger/ 
+│ │ ├── index.js # Function Logic 
+│ │ └── function.json # Trigger Configuration 
+│ ├── host.json 
+│ └── package.json 
+└── README.md
 
 ⚙️ CI/CD Workflow
 
